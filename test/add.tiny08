@@ -1,0 +1,8 @@
+// A program to calculate 2 + 3
+
+main:
+	LoadI	R0, #2
+	LoadI	R1, #3
+	Add		R0, R1
+
+%print R0
