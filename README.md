@@ -19,14 +19,14 @@ And   Rx, Ry		01100000 xxxxyyyy 00000000 00000000		// Save the result of (Rx & R
 Or    Rx, Ry		01110000 xxxxyyyy 00000000 00000000		// Save the result of (Rx | Ry) into Rx
 Mul   Rx, Ry		11010000 xxxxyyyy 00000000 00000000		// Save the result of (Rx * Ry) into Rx
 Div   Rx, Ry		11100000 xxxxyyyy 00000000 00000000		// Save the result of (Rx / Ry) into Rx
-Test  Rx, #B		11110000 xxxxBBBB 00000000 00000000		// If the Bth bit of Rx is 1, set Carry Flag
 Jmp   label			10000000 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc
 JmpC  label			10000001 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is set
-JmpNC label			10000010 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is not set
+JmpNC label			10000010 0000000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is not set
 ClrC				10010000 00000000 00000000 00000000		// Unset Carry Flag
 SetC				10010001 00000000 00000000 00000000		// Set Carry Flag
 Less  Rx, Ry		11000000 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx < Ry)
 Equal Rx, Ry		11000001 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx == Ry)
+Test  Rx, #B		11110000 xxxxBBBB 00000000 00000000		// If the Bth bit of Rx is 1, set Carry Flag
 
 ```
 
