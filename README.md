@@ -30,12 +30,12 @@ Equal Rx, Ry		11000001 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx == R
 
 ```
 
-Debugger Commands
+Debug Commands(only work on simulator)
 -------------------
 
 ```
 %print Rx			// Print the content of Rx to STDOUT
-%printm mem			// Print the content of memory address mem
+%printm [mem]		// Print the content of memory address mem
 %dump				// Dump all the contents of R0-R15
 %break				// Breakpoint
 ```
