@@ -1,0 +1,7 @@
+.idea
+.idea_modules
+.DS_Store
+**/target
+target
+*.iml
+out
