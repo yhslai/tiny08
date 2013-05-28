@@ -9,8 +9,8 @@ Spec
 ```
   <<Assembly>>		         <<Machine Code>>				        <<Description>>
 LoadI Rx, #imm		00010000 xxxx0000 VVVVVVVV VVVVVVVV		// Load an immediate value into Rx
-Load  Rx, [Ry]		00010100 xxxxyyyy 00000000 00000000		// Load a value from memory address Ry into Rx
-Store [Ry], Rx		00011000 xxxxyyyy 00000000 00000000		// Save a value from Rx into memory address Ry
+Load  Rx, [mem]		00010100 xxxx0000 MMMMMMMM MMMMMMMM		// Load a value from memory address mem into Rx
+Store [mem], Rx		00011000 xxxx0000 MMMMMMMM MMMMMMMM		// Save a value from Rx into memory address mem
 Swap  Rx, Ry		11010000 xxxxyyyy 00000000 00000000		// Swap the values in Rx and Ry
 Move  Rx, Ry		11010001 xxxxyyyy 00000000 00000000		// Move the value in Ry into Rx
 Add   Rx, Ry		01000000 xxxxyyyy 00000000 00000000		// Save the result of (Rx + Ry) into Rx
