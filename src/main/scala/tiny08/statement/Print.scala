@@ -10,7 +10,7 @@ class Print(val address: Int, rx: Int, val filename: String, val lineNum: Int)
   }
 
   override def toString = {
-    s"%Print R$rx%\tat $address"
+    s"%print R$rx%\tat $address"
   }
 }
 

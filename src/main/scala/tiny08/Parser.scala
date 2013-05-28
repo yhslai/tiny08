@@ -4,10 +4,14 @@ import tiny08.statement._
 
 object Parser {
   val factories = List(
-    Add,
-    LoadI,
     Label,
-    Print
+    Load, LoadI, Store,
+    Add, Sub, Mul, Div, And, Or,
+    Swap, Move,
+    Jmp, JmpC, JmpNC,
+    Less, Equal, Test,
+    ClrC, SetC,
+    Print, PrintM, Dump, Break
   )
 
   def parse(asms: Seq[Asm]): Seq[Statement] = {
