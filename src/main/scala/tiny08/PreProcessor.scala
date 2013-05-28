@@ -4,7 +4,9 @@ object PreProcessor {
 
   def preProcess(asm: String): String = {
     removeBlankLines(
-      removeComments(asm)
+      removeRedundantSpaces(
+        removeComments(asm)
+      )
     )
   }
 
@@ -14,6 +16,11 @@ object PreProcessor {
 
   private def removeComments(s: String) = {
     """(?m)//.*$""".r.replaceAllIn(s, "")
+  }
+
+  private def removeRedundantSpaces(s: String) = {
+    val removedLeadingSpace = """(?m)^[^\S\n]+""".r.replaceAllIn(s, "")
+    """(?m)[^\S\n]+""".r.replaceAllIn(removedLeadingSpace, " ")
   }
 
 }
