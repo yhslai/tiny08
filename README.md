@@ -30,6 +30,24 @@ Equal Rx, Ry		11000001 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx == R
 
 ```
 
+Debugger Commands
+-------------------
+
+```
+%print Rx			// Print the content of Rx to STDOUT
+%printm mem			// Print the content of memory address mem
+%dump				// Dump all the contents of R0-R15
+%break				// Breakpoint
+```
+
+Other Syntax
+------------------
+
+```
+:label				// Indicate a label to be used in Jmp/JmpC/JmpNC
+#include "file"		// Include the instructions of another assembly file
+```
+
 
 Tools
 ---------------
