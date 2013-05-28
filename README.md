@@ -17,9 +17,9 @@ Add   Rx, Ry		01000000 xxxxyyyy 00000000 00000000		// Save the result of (Rx + R
 Sub   Rx, Ry		01010000 xxxxyyyy 00000000 00000000		// Save the result of (Rx - Ry) into Rx
 And   Rx, Ry		01100000 xxxxyyyy 00000000 00000000		// Save the result of (Rx & Ry) into Rx
 Or    Rx, Ry		01110000 xxxxyyyy 00000000 00000000		// Save the result of (Rx | Ry) into Rx
-Jmp   loc			10000000 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc
-JmpC  loc			10000001 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is set
-JmpNC loc			10000010 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is not set
+Jmp   label			10000000 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc
+JmpC  label			10000001 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is set
+JmpNC label			10000010 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is not set
 ClrC				10010000 00000000 00000000 00000000		// Unset Carry Flag
 SetC				10010001 00000000 00000000 00000000		// Set Carry Flag
 Less  Rx, Ry		11000000 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx < Ry)
