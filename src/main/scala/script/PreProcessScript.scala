@@ -1,7 +1,7 @@
 package script
 
 import scala.io.Source
-import tiny08.PreProcessor
+import tiny08.{Asm, PreProcessor}
 
 object PreProcessScript {
   def main(args: Array[String]) {
@@ -10,7 +10,11 @@ object PreProcessScript {
 
     val asmFilename = args(0)
     val sourceCode = Source.fromFile(asmFilename).mkString
-    val preProcessedCode = PreProcessor.preProcess(sourceCode)
-    println(preProcessedCode)
+    val preProcessedAsm = PreProcessor.preProcess(sourceCode, asmFilename)
+    printAsm(preProcessedAsm)
+  }
+
+  private def printAsm(asms: Seq[Asm]) {
+    println(asms.map(_.code).mkString("\n"))
   }
 }
