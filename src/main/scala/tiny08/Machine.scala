@@ -24,8 +24,11 @@ class Machine {
   }
 
   def setRegister(r: Int, value: Int) {
-    if(value > UpperBound || value < LowerBound) throw new RegisterOverflowError(r, value)
-    else registers = registers.updated(r, value)
+    if(registers.isDefinedAt(r)) {
+      if(value > UpperBound || value < LowerBound) throw new RegisterOverflowError(r, value)
+      else registers = registers.updated(r, value)
+    }
+    else throw new NoSuchRegisterError(r)
   }
 
   def carryFlag = _carryFlag

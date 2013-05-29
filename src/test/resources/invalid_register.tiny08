@@ -1,0 +1,3 @@
+main:
+	LoadI R10, #10
+	LoadI R16, #5	// Should cause error
