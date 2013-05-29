@@ -19,7 +19,7 @@ object Parser {
     asms.map(asm => {
       val result = parseCode(asm.code, addr, asm.filename, asm.lineNum)
       result match {
-        case ins: Instruction => if(!ins.debugger) addr += 2
+        case ins: Instruction => addr += 2
         case _ =>
       }
       result

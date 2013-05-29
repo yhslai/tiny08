@@ -1,7 +1,7 @@
 package tiny08.statement
 
 class Dump(val address: Int, val filename: String, val lineNum: Int)
-  extends Statement {
+  extends DebugCommand {
 
   val debugger = true
 
