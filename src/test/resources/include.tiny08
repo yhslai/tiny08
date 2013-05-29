@@ -4,3 +4,4 @@ main:
     LoadI R0, #10
     #include "includee/print_r0"
     #include "includee/print_r0"
+    Exit

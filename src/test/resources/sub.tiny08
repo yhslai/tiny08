@@ -6,3 +6,4 @@ main:
 	Sub		R0, R1
 
 %print R0
+    Exit

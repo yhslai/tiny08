@@ -1,6 +1,20 @@
 package tiny08.statement
 
+import tiny08.{Simulator, Machine}
+import tiny08.exception.RuntimeError
+
 trait Instruction extends Statement {
-  val debugger: Boolean
-  def run()
+  def run(machine: Machine, labelTable: Simulator#LabelTable) {
+    try {
+      execute(machine, labelTable)
+    }
+    catch {
+      case e: RuntimeError => {
+        println(s"Runtime error at $filename:$lineNum")
+        throw e
+      }
+    }
+  }
+
+  def execute(machine: Machine, labelTable: Simulator#LabelTable)
 }

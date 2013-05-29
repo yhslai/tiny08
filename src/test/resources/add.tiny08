@@ -6,3 +6,4 @@ main:
 	Add		R0, R1
 
 %print R0
+    Exit

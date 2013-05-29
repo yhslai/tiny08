@@ -1,12 +1,15 @@
 package tiny08.statement
 
+import tiny08.Machine
+import java.io.File
+
 class PrintM(val address: Int, mem: Int, val filename: String, val lineNum: Int)
   extends DebugCommand {
 
   val debugger = true
 
-  def run() {
-
+  def execute(machine: Machine) {
+    //TODO
   }
 
   override def toString = {

@@ -1,12 +1,15 @@
 package tiny08.statement
 
+import tiny08.{Simulator, Machine}
+
 class SetC(val address: Int, val filename: String, val lineNum: Int)
   extends Instruction {
 
   val debugger = false
 
-  def run() {
-
+  def execute(machine: Machine, dummy: Simulator#LabelTable) {
+    machine.setCarryFlag()
+    machine.programCounter += 2
   }
 
   override def toString = {

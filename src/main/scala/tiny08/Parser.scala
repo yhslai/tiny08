@@ -11,7 +11,8 @@ object Parser {
     Jmp, JmpC, JmpNC,
     Less, Equal, Test,
     ClrC, SetC,
-    Print, PrintM, Dump, Break
+    Print, PrintM, Dump, Break,
+    Exit
   )
 
   def parse(asms: Seq[Asm]): Seq[Statement] = {

@@ -1,12 +1,14 @@
 package tiny08.statement
 
+import tiny08.{Simulator, Machine}
+
 class Break(val address: Int, val filename: String, val lineNum: Int)
   extends DebugCommand {
 
   val debugger = true
 
-  def run() {
-
+  def execute(machine: Machine) {
+    //TODO
   }
 
   override def toString = {

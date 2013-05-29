@@ -1,12 +1,17 @@
 package tiny08.statement
 
+import tiny08.Machine
+import java.io.File
+
 class Print(val address: Int, rx: Int, val filename: String, val lineNum: Int)
   extends DebugCommand {
 
   val debugger = true
 
-  def run() {
-
+  def execute(machine: Machine) {
+    val value = machine.getRegister(rx)
+    val filenameOnly = new File(filename).getName
+    println(s"$filenameOnly:$lineNum: R$rx = $value")
   }
 
   override def toString = {

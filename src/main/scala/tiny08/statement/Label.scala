@@ -1,6 +1,6 @@
 package tiny08.statement
 
-class Label(val address: Int, name: String, val filename: String, val lineNum: Int)
+class Label(val address: Int, val name: String, val filename: String, val lineNum: Int)
   extends Statement{
 
   override def toString = {

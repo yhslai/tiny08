@@ -1,12 +1,14 @@
 package tiny08.statement
 
+import tiny08.{Machine, Simulator}
+
 class JmpNC(val address: Int, label: String, val filename: String, val lineNum: Int)
   extends Instruction {
 
   val debugger = false
 
-  def run() {
-
+  def execute(machine: Machine, dummy: Simulator#LabelTable) {
+    //TODO
   }
 
   override def toString = {
