@@ -9,8 +9,8 @@ Spec
 ```
   <<Assembly>>		         <<Machine Code>>				        <<Description>>
 LoadI Rx, #imm		00010000 xxxx0000 VVVVVVVV VVVVVVVV		// Load an immediate value into Rx
-Load  Rx, [mem]		00010100 xxxx0000 MMMMMMMM MMMMMMMM		// Load a value from memory address mem into Rx
-Store [mem], Rx		00011000 xxxx0000 MMMMMMMM MMMMMMMM		// Save a value from Rx into memory address mem
+Load  Rx, [0xMEM]	00010100 xxxx0000 MMMMMMMM MMMMMMMM		// Load a value from memory address MEM into Rx
+Store [0xMEM], Rx	00011000 xxxx0000 MMMMMMMM MMMMMMMM		// Save a value from Rx into memory address MEM
 Swap  Rx, Ry		11010000 xxxxyyyy 00000000 00000000		// Swap the values in Rx and Ry
 Move  Rx, Ry		11010001 xxxxyyyy 00000000 00000000		// Move the value in Ry into Rx
 Add   Rx, Ry		01000000 xxxxyyyy 00000000 00000000		// Save the result of (Rx + Ry) into Rx
@@ -21,12 +21,14 @@ Mul   Rx, Ry		11010000 xxxxyyyy 00000000 00000000		// Save the result of (Rx * R
 Div   Rx, Ry		11100000 xxxxyyyy 00000000 00000000		// Save the result of (Rx / Ry) into Rx
 Jmp   label			10000000 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc
 JmpC  label			10000001 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is set
-JmpNC label			10000010 0000000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is not set
+JmpNC label			10000010 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is not set
 ClrC				10010000 00000000 00000000 00000000		// Unset Carry Flag
 SetC				10010001 00000000 00000000 00000000		// Set Carry Flag
 Less  Rx, Ry		11000000 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx < Ry), clear it otherwise
 Equal Rx, Ry		11000001 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx == Ry), clear it otherwise
 Test  Rx, #B		11110000 xxxxBBBB 00000000 00000000		// If the Bth bit of Rx is 1, set Carry Flag, clear it otherwise
+Exit  				00000000 00000000 00000000 00000000
+		// Exit the program
 
 ```
 
@@ -35,7 +37,7 @@ Debug Commands(only work on simulator)
 
 ```
 %print Rx			// Print the content of Rx to STDOUT
-%printm [mem]		// Print the content of memory address mem
+%printm [0xMEM]		// Print the content of memory address MEM
 %dump				// Dump all the contents of R0-R15
 %break				// Breakpoint
 ```
