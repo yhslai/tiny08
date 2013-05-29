@@ -29,7 +29,8 @@ object PreProcessor {
   private def removeRedundantSpaces(asms: Seq[Asm]) = {
     asms.map(asm => {
       val removedLeadingSpace = """(?m)^[^\S\n]+""".r.replaceAllIn(asm.code, "")
-      asm.copy(code = """(?m)[^\S\n]+""".r.replaceAllIn(removedLeadingSpace, " "))
+      val removedFollowingSpace = """(?m)[^\S\n]+$""".r.replaceAllIn(removedLeadingSpace, "")
+      asm.copy(code = """(?m)[^\S\n]+""".r.replaceAllIn(removedFollowingSpace, " "))
     })
   }
 
