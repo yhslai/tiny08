@@ -10,8 +10,12 @@ Spec
   <<Assembly>>		         <<Machine Code>>				        <<Description>>
 LoadI Rx, #imm		00010000 xxxx0000 VVVVVVVV VVVVVVVV		// Load an immediate value into Rx
 Load  Rx, [0xMEM]	00010100 xxxx0000 MMMMMMMM MMMMMMMM		// Load a value from memory address MEM into Rx
-Store [0xMEM], Rx	00011000 xxxx0000 MMMMMMMM MMMMMMMM		// Save a value from Rx into memory address MEM
-Swap  Rx, Ry		11010000 xxxxyyyy 00000000 00000000		// Swap the values in Rx and Ry
+LoadR Rx, [Ry]    	00010101 xxxxyyyy 00000000 00000000
+		// Load a value from memory address Ry into Rx
+Save  [0xMEM], Rx	00011000 xxxx0000 MMMMMMMM MMMMMMMM		// Save a value from Rx into memory address MEM
+SaveR [Ry], Rx     	00011001 xxxxyyyy 00000000 00000000
+		// Save a value from Rx into memory address Ry
+Swap   Rx, Ry		11010000 xxxxyyyy 00000000 00000000		// Swap the values in Rx and Ry
 Move  Rx, Ry		11010001 xxxxyyyy 00000000 00000000		// Move the value in Ry into Rx
 Add   Rx, Ry		01000000 xxxxyyyy 00000000 00000000		// Save the result of (Rx + Ry) into Rx
 Sub   Rx, Ry		01010000 xxxxyyyy 00000000 00000000		// Save the result of (Rx - Ry) into Rx
