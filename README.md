@@ -54,7 +54,7 @@ Exit  				00000000 00000000 00000000 00000000		// Exit the program
 %print Rx			// Print the content of Rx to STDOUT
 %printm [0xMEM]		// Print the content of memory address MEM
 %dump				// Dump all the contents of R0-R15
-%break				// Breakpoint
+%break				// Breakpoint (Unimplementeds)
 ```
 
 ### Other Syntax
