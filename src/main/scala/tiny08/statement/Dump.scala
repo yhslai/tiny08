@@ -1,6 +1,7 @@
 package tiny08.statement
 
 import tiny08.{Simulator, Machine}
+import java.io.File
 
 class Dump(val address: Int, val filename: String, val lineNum: Int)
   extends DebugCommand {
@@ -8,11 +9,15 @@ class Dump(val address: Int, val filename: String, val lineNum: Int)
   val debugger = true
 
   def execute(machine: Machine) {
-    ???
+    val filenameOnly = new File(filename).getName
+    for(r <- (0 to 15)) {
+      val value = machine.getRegister(r)
+      println(f"$filenameOnly:$lineNum: R$r = $value%2d")
+    }
   }
 
   override def toString = {
-    s"%dump%\tat $address"
+    f"${s"%dump%\tat $address"}%-25s at $address"
   }
 }
 

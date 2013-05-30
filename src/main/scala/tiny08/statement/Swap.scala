@@ -8,11 +8,15 @@ class Swap(val address: Int, rx: Int, ry: Int, val filename: String, val lineNum
   val debugger = false
 
   def execute(machine: Machine, dummy: Simulator#LabelTable) {
-    ???
+    val y = machine.getRegister(ry)
+    val x = machine.getRegister(rx)
+    machine.setRegister(rx, y)
+    machine.setRegister(ry, x)
+    machine.programCounter += 2
   }
 
   override def toString = {
-    s"[Swap R$rx R$ry]\tat $address"
+    f"${s"[Swap R$rx R$ry]"}%-25s at $address"
   }
 }
 
