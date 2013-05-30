@@ -61,6 +61,8 @@ carry-end:
 	Jmp   loop
 
 carry:
+	LoadI R15, #100
+	Sub   R0, R15
 	LoadI R15, #1
 	Save  [0xD000], R15
 	Jmp   carry-end
