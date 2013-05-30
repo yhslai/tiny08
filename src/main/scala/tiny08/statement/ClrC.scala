@@ -12,6 +12,16 @@ class ClrC(val address: Int, val filename: String, val lineNum: Int)
     machine.programCounter += 2
   }
 
+  def toMachineCode(dummy: Simulator#LabelTable) = {
+    val str =
+      "10010000" +
+      "00000000" +
+      "00000000" +
+      "00000000"
+
+    str32ToByte4(str)
+  }
+
   override def toString = {
     f"${s"[ClrC]"}%-25s at $address"
   }

@@ -2,6 +2,7 @@ package tiny08.statement
 
 import tiny08.{Simulator, Machine}
 import tiny08.util.HexDecConversion._
+import tiny08.util.BinDecConversion._
 
 class Save(val address: Int, mem: Int, rx: Int, val filename: String, val lineNum: Int)
   extends Instruction {
@@ -12,6 +13,15 @@ class Save(val address: Int, mem: Int, rx: Int, val filename: String, val lineNu
     val x = machine.getRegister(rx)
     machine.setMemory(mem, x)
     machine.programCounter += 2
+  }
+
+  def toMachineCode(dummy: Simulator#LabelTable) = {
+    val str =
+      "00011000" +
+      rx.toBinStr(4) + "0000" +
+      mem.toBinStr(16)
+
+    str32ToByte4(str)
   }
 
   override def toString = {

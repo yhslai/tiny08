@@ -17,4 +17,10 @@ trait Instruction extends Statement {
   }
 
   def execute(machine: Machine, labelTable: Simulator#LabelTable)
+
+  def toMachineCode(labelTable: Simulator#LabelTable): Seq[Byte]
+
+  protected def str32ToByte4(str: String): Seq[Byte] = {
+    str.grouped(8).map(s => Integer.parseInt(s, 2).toByte).toList
+  }
 }

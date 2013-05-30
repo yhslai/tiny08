@@ -9,6 +9,16 @@ class Exit(val address: Int, val filename: String, val lineNum: Int)
     machine.halt()
   }
 
+  def toMachineCode(dummy: Simulator#LabelTable) = {
+    val str =
+      "00000000" +
+      "00000000" +
+      "00000000" +
+      "00000000"
+
+    str32ToByte4(str)
+  }
+
   override def toString = {
     f"${s"Exit"}%-25s at $address"
   }

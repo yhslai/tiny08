@@ -2,6 +2,7 @@ package tiny08.statement
 
 import tiny08.{Simulator, Machine}
 import tiny08.exception.NoSuchLabel
+import tiny08.util.BinDecConversion._
 
 class Jmp(val address: Int, label: String, val filename: String, val lineNum: Int)
   extends Instruction {
@@ -9,10 +10,20 @@ class Jmp(val address: Int, label: String, val filename: String, val lineNum: In
   val debugger = false
 
   def execute(machine: Machine, labelTable: Simulator#LabelTable) {
-    if(labelTable.isDefinedAt(label)) {
-      val labelMem = labelTable(label)
-      machine.programCounter = labelMem
-    }
+    machine.programCounter = labelMem(labelTable)
+  }
+
+  def toMachineCode(labelTable: Simulator#LabelTable) = {
+    val str =
+      "10000000" +
+      "00000000" +
+      labelMem(labelTable).toBinStr(16)
+
+    str32ToByte4(str)
+  }
+
+  private def labelMem(labelTable: Simulator#LabelTable) = {
+    if(labelTable.isDefinedAt(label)) labelTable(label)
     else throw new NoSuchLabel(label)
   }
 
