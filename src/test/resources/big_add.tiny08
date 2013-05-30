@@ -54,17 +54,17 @@ loop:
 carry-end:
 	LoadI R11, #0xC00C
 	Add   R11, R14
-	SaveR R0, [R11]
+	SaveR [R11], R0
 	Jmp   loop
 
 carry:
 	LoadI R15, #1
-	Save  R15, [0xD000]
+	Save  [0xD000], R15
 	Jmp   carry-end
 
 no-carry:
 	LoadI R15, #0
-	Save  R15, [0xD000]
+	Save  [0xD000], R15
 	Jmp   carry-end
 
 output:
