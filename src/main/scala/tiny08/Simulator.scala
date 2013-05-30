@@ -3,7 +3,7 @@ package tiny08
 import tiny08.statement._
 import tiny08.exception.NoSuchInstruction
 
-class Simulator(statements: Seq[Statement], machine: Machine) {
+class Simulator(statements: Seq[Statement], machine: Machine, verbose: Boolean = false) {
   type LabelTable = Map[String, Int]
   type Instructions = Map[Int, Instruction]
   val instructions = makeInstructions(statements)
@@ -49,6 +49,7 @@ class Simulator(statements: Seq[Statement], machine: Machine) {
   private def runInstruction(pc: Int) {
     if(instructions.isDefinedAt(pc)) {
       val ins = instructions(pc)
+      if(verbose) println(s"Running ${ins.filename}:${ins.lineNum}: $ins")
       ins.run(machine, labelTable)
     }
     else throw new NoSuchInstruction(pc)
