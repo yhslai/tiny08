@@ -7,19 +7,21 @@ An minimized assembly language we made.
 Try It Out
 --------------
 
-For now, you need [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html), [Scala](http://www.scala-lang.org/) and Java Runtime(I will publish a packaged jar soon).
+If you have [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html) and [Scala](http://www.scala-lang.org/), just use `sbt` command. Otherwise, download [Tiny08.jar](https://mega.co.nz/#!z4Q1HYJT!XsgfuhjPhPbegrZo7Ca3lUGWYS9TdIBWz_C3HK1n72M).
+
+### Run Simulator
 
 Example:
 
     sbt 'run-main script.SimulatorScript src/test/resources/big_add.tiny08'
+	java -cp Tiny08.jar script.SimulatorScript src/test/resources/big_add.tiny08 // If you have no sbt
 
 
-Generate Machine Code
----------------
-
+###Generate Machine Code
 Example:
 
     sbt 'run-main script.AssemblerScript src/test/resources/add.tiny08 output'
+    java -cp Tiny08.jar script.AssemblerScriptt src/test/resources/add.tiny08 output // If you have no sbt
 
 You should get:
 
