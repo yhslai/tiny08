@@ -11,7 +11,7 @@ class Print(val address: Int, rx: Int, val filename: String, val lineNum: Int)
   def execute(machine: Machine) {
     val value = machine.getRegister(rx)
     val filenameOnly = new File(filename).getName
-    println(s"$filenameOnly:$lineNum: R$rx = $value")
+    println(f"$filenameOnly:$lineNum: R$rx = $value%2d")
   }
 
   override def toString = {

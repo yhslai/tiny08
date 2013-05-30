@@ -12,7 +12,7 @@ class PrintM(val address: Int, mem: Int, val filename: String, val lineNum: Int)
   def execute(machine: Machine) {
     val value = machine.getMemory(mem)
     val filenameOnly = new File(filename).getName
-    println(s"$filenameOnly:$lineNum: [${mem.toHexStr}] = $value")
+    println(f"$filenameOnly:$lineNum: [${mem.toHexStr}] = $value%02d")
   }
 
   override def toString = {
