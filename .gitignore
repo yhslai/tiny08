@@ -3,5 +3,6 @@
 .DS_Store
 **/target
 target
+!target/start
 *.iml
 out
