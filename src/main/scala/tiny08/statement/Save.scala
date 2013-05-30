@@ -9,11 +9,14 @@ class Save(val address: Int, mem: Int, rx: Int, val filename: String, val lineNu
   val debugger = false
 
   def execute(machine: Machine, dummy: Simulator#LabelTable) {
-    ???
+    val x = machine.getRegister(rx)
+    machine.setMemory(mem, x)
+    machine.programCounter += 2
   }
 
   override def toString = {
-    f"""${s"[Save [${mem.toHexStr}] R$rx]"}%-25s at $address"""
+    val ins = s"[Save [${mem.toHexStr}] R$rx]"
+    f"""$ins%-25s at $address"""
   }
 }
 
