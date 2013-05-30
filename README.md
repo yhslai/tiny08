@@ -10,11 +10,9 @@ Spec
   <<Assembly>>		         <<Machine Code>>				        <<Description>>
 LoadI Rx, #imm		00010000 xxxx0000 VVVVVVVV VVVVVVVV		// Load an immediate value into Rx
 Load  Rx, [0xMEM]	00010100 xxxx0000 MMMMMMMM MMMMMMMM		// Load a value from memory address MEM into Rx
-LoadR Rx, [Ry]    	00010101 xxxxyyyy 00000000 00000000
-		// Load a value from memory address Ry into Rx
+LoadR Rx, [Ry]    	00010101 xxxxyyyy 00000000 00000000		// Load a value from memory address Ry into Rx
 Save  [0xMEM], Rx	00011000 xxxx0000 MMMMMMMM MMMMMMMM		// Save a value from Rx into memory address MEM
-SaveR [Ry], Rx     	00011001 xxxxyyyy 00000000 00000000
-		// Save a value from Rx into memory address Ry
+SaveR [Ry], Rx     	00011001 xxxxyyyy 00000000 00000000		// Save a value from Rx into memory address Ry
 Swap   Rx, Ry		11010000 xxxxyyyy 00000000 00000000		// Swap the values in Rx and Ry
 Move  Rx, Ry		11010001 xxxxyyyy 00000000 00000000		// Move the value in Ry into Rx
 Add   Rx, Ry		01000000 xxxxyyyy 00000000 00000000		// Save the result of (Rx + Ry) into Rx
@@ -31,8 +29,7 @@ SetC				10010001 00000000 00000000 00000000		// Set Carry Flag
 Less  Rx, Ry		11000000 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx < Ry), clear it otherwise
 Equal Rx, Ry		11000001 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx == Ry), clear it otherwise
 Test  Rx, #B		11110000 xxxxBBBB 00000000 00000000		// If the Bth bit of Rx is 1, set Carry Flag, clear it otherwise
-Exit  				00000000 00000000 00000000 00000000
-		// Exit the program
+Exit  				00000000 00000000 00000000 00000000		// Exit the program
 
 ```
 
