@@ -9,7 +9,9 @@ class Load(val address: Int, rx: Int, mem: Int, val filename: String, val lineNu
   val debugger = false
 
   def execute(machine: Machine, dummy: Simulator#LabelTable) {
-    ???
+    val value = machine.getMemory(mem)
+    machine.setRegister(rx, value)
+    machine.programCounter += 2
   }
 
   override def toString = {
