@@ -6,6 +6,8 @@ An minimized assembly language we made.
 Spec
 ---------------
 
+### Instructions
+
 ```
   <<Assembly>>		         <<Machine Code>>				        <<Description>>
 LoadI Rx, #imm		00010000 xxxx0000 VVVVVVVV VVVVVVVV		// Load an immediate value into Rx
@@ -33,8 +35,8 @@ Exit  				00000000 00000000 00000000 00000000		// Exit the program
 
 ```
 
-Debug Commands(only work on simulator)
--------------------
+### Debug Commands(only for the simulator)
+
 
 ```
 %print Rx			// Print the content of Rx to STDOUT
@@ -43,13 +45,21 @@ Debug Commands(only work on simulator)
 %break				// Breakpoint
 ```
 
-Other Syntax
-------------------
+### Other Syntax
+
 
 ```
 :label				// Indicate a label to be used in Jmp/JmpC/JmpNC
 #include "file"		// Include the instructions of another assembly file
 ```
+
+Machine Spec
+---------------
+
+* As described [above](#instructions), all instructions are 32bit.
+* All data or memory addresses are 16bit, or 2byte. It's the minimum unit to access memory.
+* Consequently, every instruction occupy two memory address.
+* Numeric data is signed(-32768 ~ 32767), addresses are unsigned(0 ~ 65535, or 0x0000 ~ 0xFFFF).
 
 
 Tools
