@@ -1,6 +1,7 @@
 package tiny08.statement
 
 import tiny08.{Simulator, Machine}
+import tiny08.exception.NoSuchLabel
 
 class Jmp(val address: Int, label: String, val filename: String, val lineNum: Int)
   extends Instruction {
@@ -8,7 +9,11 @@ class Jmp(val address: Int, label: String, val filename: String, val lineNum: In
   val debugger = false
 
   def execute(machine: Machine, labelTable: Simulator#LabelTable) {
-    ???
+    if(labelTable.isDefinedAt(label)) {
+      val labelMem = labelTable(label)
+      machine.programCounter = labelMem
+    }
+    else throw new NoSuchLabel(label)
   }
 
   override def toString = {
