@@ -1,3 +1,9 @@
+import AssemblyKeys._
+
+assemblySettings
+
+jarName in assembly := "Tiny08.jar"
+
 name := "tiny08"
 
 version := "1.0"
