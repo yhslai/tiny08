@@ -43,7 +43,8 @@ class Machine {
   }
 
   private def is16bit(value: Int): Boolean = {
-    value < (1 << 15) && value >= -(1 << 15)
+    // Don't know it's signed or unsigned
+    value < (1 << 16) && value >= -(1 << 15)
   }
 
   def carryFlag = _carryFlag
