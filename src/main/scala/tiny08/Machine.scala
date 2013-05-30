@@ -35,7 +35,7 @@ class Machine {
   }
 
   def setMemory(mem: Int, value: Int) {
-    if(registers.isDefinedAt(mem)) {
+    if(memory.isDefinedAt(mem)) {
       if(is16bit(value)) memory = memory.updated(mem, value)
       else throw new MemoryOverflowError(mem, value)
     }
