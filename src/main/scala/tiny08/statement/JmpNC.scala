@@ -8,7 +8,7 @@ class JmpNC(val address: Int, label: String, val filename: String, val lineNum: 
   val debugger = false
 
   def execute(machine: Machine, dummy: Simulator#LabelTable) {
-    //TODO
+    ???
   }
 
   override def toString = {
