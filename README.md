@@ -23,6 +23,7 @@ And   Rx, Ry		01100000 xxxxyyyy 00000000 00000000		// Save the result of (Rx & R
 Or    Rx, Ry		01110000 xxxxyyyy 00000000 00000000		// Save the result of (Rx | Ry) into Rx
 Mul   Rx, Ry		11010000 xxxxyyyy 00000000 00000000		// Save the result of (Rx * Ry) into Rx
 Div   Rx, Ry		11100000 xxxxyyyy 00000000 00000000		// Save the result of (Rx / Ry) into Rx
+Mod   Rx, Ry       	11110000 xxxxyyyy 00000000 00000000		// Save the result of (Rx % Ry) into Rx
 Jmp   label			10000000 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc
 JmpC  label			10000001 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is set
 JmpNC label			10000010 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is not set
