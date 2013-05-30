@@ -11,8 +11,22 @@ For now, you need [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Se
 
 Example:
 
-    sbt run src/test/resources/big_add.tiny08
+    sbt 'run-main script.SimulatorScript src/test/resources/big_add.tiny08'
 
+
+Generate Machine Code
+---------------
+
+Example:
+
+    sbt 'run-main script.AssemblerScript src/test/resources/add.tiny08 output'
+
+You should get:
+
+    xxd -b output
+    0000000: 00010000 00000000 00000000 00000010 00010000 00010000
+    0000006: 00000000 00000011 01000000 00000001 00000000 00000000
+    000000C: 00000000 00000000 00000000 00000000
 
 Spec
 ---------------
