@@ -3,6 +3,17 @@ Tiny08
 
 An minimized assembly language we made.
 
+
+Try It Out
+--------------
+
+For now, you need [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html), [Scala](http://www.scala-lang.org/) and Java Runtime(I will publish a packaged jar soon).
+
+Example:
+
+    sbt run src/test/resources/big_add.tiny08
+
+
 Spec
 ---------------
 
