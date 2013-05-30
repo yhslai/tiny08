@@ -4,7 +4,7 @@ class Label(val address: Int, val name: String, val filename: String, val lineNu
   extends Statement{
 
   override def toString = {
-    s":Label '$name':\tat $address"
+    f"${s":Label '$name':"}%-25s at $address"
   }
 }
 

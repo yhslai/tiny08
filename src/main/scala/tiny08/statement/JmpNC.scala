@@ -12,7 +12,7 @@ class JmpNC(val address: Int, label: String, val filename: String, val lineNum: 
   }
 
   override def toString = {
-    s"[JmpNC $label]\tat $address"
+    f"${s"[JmpNC $label]"}%-25s at $address"
   }
 }
 

@@ -10,7 +10,7 @@ class Exit(val address: Int, val filename: String, val lineNum: Int)
   }
 
   override def toString = {
-    s"Exit\t\tat $address"
+    f"${s"Exit"}%-25s at $address"
   }
 }
 

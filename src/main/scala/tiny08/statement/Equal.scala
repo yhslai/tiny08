@@ -16,7 +16,7 @@ class Equal(val address: Int, rx: Int, ry: Int, val filename: String, val lineNu
   }
 
   override def toString = {
-    s"[Equal R$rx R$ry]\tat $address"
+    f"${s"[Equal R$rx R$ry]"}%-25s at $address"
   }
 }
 

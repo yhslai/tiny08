@@ -12,7 +12,7 @@ class Jmp(val address: Int, label: String, val filename: String, val lineNum: In
   }
 
   override def toString = {
-    s"[Jmp $label]\tat $address"
+    f"${s"[Jmp $label]"}%-25s at $address"
   }
 }
 

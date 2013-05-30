@@ -1,7 +1,7 @@
 package tiny08.statement
 
 import tiny08.Machine
-import java.io.File
+import tiny08.util.HexDecConversion._
 
 class PrintM(val address: Int, mem: Int, val filename: String, val lineNum: Int)
   extends DebugCommand {
@@ -13,15 +13,15 @@ class PrintM(val address: Int, mem: Int, val filename: String, val lineNum: Int)
   }
 
   override def toString = {
-    s"%printm [mem]%\tat $address"
+    f"${s"%printm [${mem.toHexStr}]"}%-25s at $address"
   }
 }
 
 object PrintM extends StatementFactory {
   def apply(code: String, addr: Int, filename: String, lineNum: Int): Option[PrintM] = {
-    val pattern = """%printm [(\d+)]""".r
+    val pattern = """%printm \[((?:0x)?(?:[\da-fA-F]+))\]""".r
     code match {
-      case pattern(mem) => Some(new PrintM(addr, mem.toInt, filename, lineNum))
+      case pattern(mem) => Some(new PrintM(addr, mem.tryToInt, filename, lineNum))
       case _ => None
     }
   }
