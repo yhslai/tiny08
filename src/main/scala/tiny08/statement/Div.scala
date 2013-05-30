@@ -15,7 +15,7 @@ class Div(val address: Int, rx: Int, ry: Int, val filename: String, val lineNum:
   }
 
   override def toString = {
-    s"[Div R$rx R$ry]\tat $address"
+    f"${s"[Div R$rx R$ry]"}%-25s at $address"
   }
 }
 

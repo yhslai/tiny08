@@ -13,7 +13,7 @@ class ClrC(val address: Int, val filename: String, val lineNum: Int)
   }
 
   override def toString = {
-    s"[ClrC]\tat $address"
+    f"${s"[ClrC]"}%-25s at $address"
   }
 }
 

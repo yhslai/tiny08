@@ -15,7 +15,7 @@ class Print(val address: Int, rx: Int, val filename: String, val lineNum: Int)
   }
 
   override def toString = {
-    s"%print R$rx%\tat $address"
+    f"${s"%print R$rx%"}%-25s at $address"
   }
 }
 

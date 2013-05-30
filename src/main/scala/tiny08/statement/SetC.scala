@@ -13,7 +13,7 @@ class SetC(val address: Int, val filename: String, val lineNum: Int)
   }
 
   override def toString = {
-    s"[SetC]\tat $address"
+    f"${s"[SetC]"}%-25s at $address"
   }
 }
 

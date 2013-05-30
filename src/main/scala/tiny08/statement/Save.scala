@@ -16,7 +16,7 @@ class Save(val address: Int, mem: Int, rx: Int, val filename: String, val lineNu
 
   override def toString = {
     val ins = s"[Save [${mem.toHexStr}] R$rx]"
-    f"""$ins%-25s at $address"""
+    f"$ins%-25s at $address"
   }
 }
 

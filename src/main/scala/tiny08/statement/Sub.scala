@@ -15,7 +15,7 @@ class Sub(val address: Int, rx: Int, ry: Int, val filename: String, val lineNum:
   }
 
   override def toString = {
-    s"[Sub R$rx R$ry]\tat $address"
+    f"${s"[Sub R$rx R$ry]"}%-25s at $address"
   }
 }
 

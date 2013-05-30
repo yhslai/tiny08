@@ -16,7 +16,7 @@ class Test(val address: Int, rx: Int, bit: Int, val filename: String, val lineNu
   }
 
   override def toString = {
-    s"[Test R$rx #$bit]\tat $address"
+    f"${s"[Test R$rx #$bit]"}%-25s at $address"
   }
 }
 
