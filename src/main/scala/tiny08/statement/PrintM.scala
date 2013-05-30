@@ -11,10 +11,10 @@ class PrintM(val address: Int, mem: Int, val filename: String, val lineNum: Int)
   def execute(machine: Machine) {
     ???
   }
-  }
 
   override def toString = {
-    f"${s"%printm [${mem.toHexStr}]"}%-25s at $address"
+    val ins = s"%printm [${mem.toHexStr}]"
+    f"$ins%-25s at $address"
   }
 }
 
