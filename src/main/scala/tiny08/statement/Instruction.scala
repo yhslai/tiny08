@@ -5,6 +5,7 @@ import tiny08.exception.RuntimeError
 
 trait Instruction extends Statement {
   def run(machine: Machine, labelTable: Simulator#LabelTable) {
+    println(s"Running $filename:$lineNum: $this")
     try {
       execute(machine, labelTable)
     }
