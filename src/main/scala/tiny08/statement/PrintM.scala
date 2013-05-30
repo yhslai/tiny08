@@ -2,6 +2,7 @@ package tiny08.statement
 
 import tiny08.Machine
 import tiny08.util.HexDecConversion._
+import java.io.File
 
 class PrintM(val address: Int, mem: Int, val filename: String, val lineNum: Int)
   extends DebugCommand {
@@ -9,7 +10,9 @@ class PrintM(val address: Int, mem: Int, val filename: String, val lineNum: Int)
   val debugger = true
 
   def execute(machine: Machine) {
-    ???
+    val value = machine.getMemory(mem)
+    val filenameOnly = new File(filename).getName
+    println(s"$filenameOnly:$lineNum: [${mem.toHexStr}] = $value")
   }
 
   override def toString = {
