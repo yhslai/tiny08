@@ -34,3 +34,9 @@ class NoSuchInstruction(pc: Int) extends RuntimeError {
     s"No such instruction: PC = $pc"
   }
 }
+
+class NoSuchLabel(label: String) extends RuntimeError {
+  override def toString = {
+    s"No such label: '$label'"
+  }
+}
