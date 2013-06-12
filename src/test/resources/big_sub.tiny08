@@ -1,5 +1,5 @@
 // Calculate 1234567890 - 9876543210
-// The first operand is in 0000-0007, the second operand is in 0008-0010
+// The first operand is in 0000-0007, the second operand is in 0008-000F
 // the result will be stored in A000-A007
 // The carrying number is in 1000
 
