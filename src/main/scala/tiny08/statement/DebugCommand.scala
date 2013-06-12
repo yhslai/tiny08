@@ -10,7 +10,7 @@ trait DebugCommand extends Statement {
     }
     catch {
       case e: RuntimeError => {
-        println(s"Runtime error at $filename:${lineNum+1}")
+        println(s"Runtime error at $filename:$lineNum")
         throw e
       }
     }
