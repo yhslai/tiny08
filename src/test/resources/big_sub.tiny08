@@ -1,4 +1,4 @@
-// Calculate 1234567890 - 9876543210
+// Calculate 1234567890 - 9876543210 = -8641975320
 // The first operand is in 0000-0007, the second operand is in 0008-000F
 // the result will be stored in A000-A007
 // The carrying number is in 1000
@@ -26,81 +26,7 @@ main:
 	LoadI R15, #98
 	Save  [0x000C], R15
 
-	LoadI R15, #0
-	Save  [0x1000], R15		// Clear the carrying number
-
-	LoadI R14, #0 			// Loop Initialization
-
-loop:
-	LoadI R15, #6
-	Equal R14, R15			// Loop Condition
-	JmpC  process-sign
-
-	LoadI R10, #0x0000
-	Add   R10, R14
-	LoadR R0, [R10]
-	LoadI R10, #0x0008
-	Add   R10, R14
-	LoadR R1, [R10]
-	Load  R2, [0x1000]
-	Add   R1, R2
-
-	LoadI R15, #0
-	Save  [0x1000], R15		// Clear carry
-
-	Less  R0, R1 			// Need to carry
-	JmpC  carry
-
-carry-end:
-	Sub   R0, R1
-	LoadI R10, #0xA000
-	Add   R10, R14
-	SaveR [R10], R0
-
-	LoadI R15, #1
-	Add   R14, R15			// Loop incrementation
-	Jmp   loop
-
-carry:
-	LoadI R15, #100
-	Add   R0, R15			// Borrow 100 from higher digit
-	LoadI R15, #1
-	Save  [0x1000], R15
-	Jmp   carry-end
-
-process-sign:
-	Load  R2, [0x1000]
-	LoadI R10, #0
-	Equal R10, R2
-	JmpC  output 			// If no pending carry, just output
-
-	LoadI R15, #1 			// Set sign to negative
-	Save  [0xA006], R15
-
-	LoadI R2, #1
-	LoadI R14, #0 			// Loop Initialization
-
-process-sign-loop:
-	LoadI R15, #6
-	Equal R14, R15			// Loop Condition
-	JmpC  output
-
-	LoadI R10, #0xA000
-	Add   R10, R14
-	LoadR R0, [R10]
-	LoadI R1, #99
-	Add   R1, R2
-	Sub   R1, R0
-	SaveR [R10], R1
-
-	LoadI R15, #1
-	Add   R14, R15
-
-	LoadI R2, #0
-	LoadI R15, #100
-	Less  R1, R15
-	JmpC  process-sign-loop
-	LoadI R2, #1
+	#include "includee/_sub"
 
 output:
 %printm [0xA000]

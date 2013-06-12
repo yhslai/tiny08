@@ -1,82 +1,41 @@
-// Calculate 1234567890 + 9876543210
-// The first operand is in C000-C005, the second operand is in C006-C00B
-// the result will be stored in C00C-C011
-// The carrying number is in D000
+// Calculate 1234567890 + 9876543210 = 11111111100
+// The first operand is in 0000-0007, the second operand is in 0008-000F
+// the result will be stored in A000-A007
+// The carrying number is in 1000
 
 main:
 	LoadI R15, #90
-	Save  [0xC000], R15
+	Save  [0x0000], R15
 	LoadI R15, #78
-	Save  [0xC001], R15
+	Save  [0x0001], R15
 	LoadI R15, #56
-	Save  [0xC002], R15
+	Save  [0x0002], R15
 	LoadI R15, #34
-	Save  [0xC003], R15
+	Save  [0x0003], R15
 	LoadI R15, #12
-	Save  [0xC004], R15
+	Save  [0x0004], R15
 
 	LoadI R15, #10
-	Save  [0xC006], R15
+	Save  [0x0008], R15
 	LoadI R15, #32
-	Save  [0xC007], R15
+	Save  [0x0009], R15
 	LoadI R15, #54
-	Save  [0xC008], R15
+	Save  [0x000A], R15
 	LoadI R15, #76
-	Save  [0xC009], R15
+	Save  [0x000B], R15
 	LoadI R15, #98
-	Save  [0xC00A], R15
+	Save  [0x000C], R15
 
-	LoadI R15, #0
-	Save  [0xD000], R15		// Clear the carrying number
-
-
-	LoadI R14, #0 			// Loop initialization
-
-loop:
-	LoadI R15, #6
-	Equal R14, R15			// Loop condition
-	JmpC  output
-
-	LoadI R10, #0xC000
-	Add   R10, R14
-	LoadR R0, [R10]
-	LoadI R10, #0xC006
-	Add   R10, R14
-	LoadR R1, [R10]
-	Load  R2, [0xD000]
-	Add   R0, R1
-	Add   R0, R2
-	LoadI R15, #99
-	Less  R15, R0
-	JmpC  carry
-	JmpNC no-carry
-
-carry-end:
-	LoadI R10, #0xC00C
-	Add   R10, R14
-	SaveR [R10], R0
-
-	LoadI R15, #1
-	Add   R14, R15			// Loop incrementation
-	Jmp   loop
-
-carry:
-	LoadI R15, #100
-	Sub   R0, R15
-	LoadI R15, #1
-	Save  [0xD000], R15
-	Jmp   carry-end
-
-no-carry:
-	LoadI R15, #0
-	Save  [0xD000], R15
-	Jmp   carry-end
+	#include "includee/_add"
 
 output:
-%printm [0xC011]
-%printm [0xC010]
-%printm [0xC00F]
-%printm [0xC00E]
-%printm [0xC00D]
-%printm [0xC00C]
+%printm [0xA000]
+%printm [0xA001]
+%printm [0xA002]
+%printm [0xA003]
+%printm [0xA004]
+%printm [0xA005]
+%printm [0xA006]
+%printm [0xA007]
 	Exit
+

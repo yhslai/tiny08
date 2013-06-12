@@ -1,3 +1,67 @@
+begin:
 %break
 
+	Load  R0, [0x0010]
+	LoadI R15, #0
+	Equal R0, R15
+	JmpC  begin 					// No new operator, just wait
+
+	LoadI R15, #1
+	Equal R0, R15
+	JmpC  add-begin
+	LoadI R15, #2
+	Equal R0, R15
+	JmpC  sub-begin
+	LoadI R15, #3
+	Equal R0, R15
+	JmpC  mul-begin
+	Load  R0, [0x0010]
+	LoadI R15, #4
+	Equal R0, R15
+	JmpC  div-begin
+	LoadI R15, #5
+	Equal R0, R15
+	JmpC  sqrt-begin
+
+	#include "includee/_add"
+	Jmp   output
+	#include "includee/_sub"
+	Jmp   output
+	#include "includee/_mul"
+	Jmp   output
+	#include "includee/_div"
+	Jmp   output
+	#include "includee/_sqrt"
+	Jmp   output
+
+output:
+%printm [0xA000]
+%printm [0xA001]
+%printm [0xA002]
+%printm [0xA003]
+%printm [0xA004]
+%printm [0xA005]
+%printm [0xA006]
+%printm [0xA007]
+
+	LoadI R15, #0
+	Save  [0x0000], R15
+	Save  [0x0001], R15
+	Save  [0x0002], R15
+	Save  [0x0003], R15
+	Save  [0x0004], R15
+	Save  [0x0005], R15
+	Save  [0x0006], R15
+	Save  [0x0007], R15
+	Save  [0x0008], R15
+	Save  [0x0009], R15
+	Save  [0x000A], R15
+	Save  [0x000B], R15
+	Save  [0x000C], R15
+	Save  [0x000D], R15
+	Save  [0x000E], R15
+	Save  [0x000F], R15
+	Save  [0x0010], R15
+
+	Jmp begin
 	Exit

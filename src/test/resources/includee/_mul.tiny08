@@ -1,0 +1,91 @@
+// The first operand is in 0000-0007, the second operand is in 0008-000F
+// the result will be stored in A000-A007
+
+mul-begin:
+	LoadI R13, #0 				// Loop1 initialization
+
+mul-loop1:
+	LoadI R15, #6
+	Equal R13, R15				// Loop1 condition
+	JmpC  mul-process-carry
+
+	LoadI R14, #0 				// Loop2 initialization
+
+	mul-loop2:
+		LoadI R15, #6
+		Equal R14, R15			// Loop2 initialization
+		JmpC  mul-loop1-inc
+
+		LoadI R10, #0x0000
+		Add   R10, R13
+		LoadR R0, [R10]
+		LoadI R10, #0x0008
+		Add   R10, R14
+		LoadR R1, [R10]
+		Mul   R0, R1
+
+		// carry
+		LoadI R10, #100
+		Move  R1, R0
+		Div   R1, R10
+		Move  R2, R0
+		Mod   R2, R10
+
+		LoadI R10, #0xA000
+		Add   R10, R13
+		Add	  R10, R14
+		LoadR R0, [R10]
+		Add   R0, R2
+		SaveR [R10], R0
+		LoadI R15, #1
+		Add	  R10, R15
+		LoadR R0, [R10]
+		Add   R0, R1
+		SaveR [R10], R0
+
+		LoadI R15, #1
+		Add   R14, R15			// Loop2 incrementation
+		Jmp   mul-loop2
+
+mul-loop1-inc:
+	LoadI R15, #1
+	Add   R13, R15			// Loop incrementation
+	Jmp   mul-loop1
+
+mul-process-carry:
+	LoadI R14, #0
+
+mul-process-carry-loop:
+	LoadI R15, #6
+	Equal R14, R15
+	JmpC  mul-mul-sign
+
+	LoadI R10, #0xA000
+	Add   R10, R14
+	LoadR R0, [R10]
+	LoadI R10, #100
+	Move  R1, R0
+	Div   R1, R10
+	Move  R2, R0
+	Mod   R2, R10
+
+	LoadI R10, #0xA000
+	Add   R10, R14
+	SaveR [R10], R2
+	LoadI R15, #1
+	Add   R10, R15
+	LoadR R0, [R10]
+	Add   R0, R1
+	SaveR [R10], R0
+
+	LoadI R15, #1
+	Add   R14, R15			// Loop incrementation
+	Jmp   mul-process-carry-loop
+
+mul-mul-sign:
+	Load  R0, [0x0006]
+	Load  R1, [0x000E]
+	Xor   R0, R1
+	Save  [0xA006], R0
+
+mul-end:
