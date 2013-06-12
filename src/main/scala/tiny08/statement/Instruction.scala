@@ -10,7 +10,7 @@ trait Instruction extends Statement {
     }
     catch {
       case e: RuntimeError => {
-        println(s"Runtime error at $filename:$lineNum")
+        println(s"Runtime error at $filename:$lineNum+1")
         throw e
       }
     }
