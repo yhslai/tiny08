@@ -7,7 +7,7 @@ object Parser {
   val factories = List(
     Label,
     Load, LoadI, LoadR, Save, SaveR,
-    Add, Sub, Mul, Div, Mod, And, Or,
+    Add, Sub, Mul, Div, Mod, And, Xor,
     Swap, Move,
     Jmp, JmpC, JmpNC,
     Less, Equal, Test,

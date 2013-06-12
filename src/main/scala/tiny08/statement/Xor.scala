@@ -3,7 +3,7 @@ package tiny08.statement
 import tiny08.{Simulator, Machine}
 import tiny08.util.BinDecConversion._
 
-class Or(val address: Int, rx: Int, ry: Int, val filename: String, val lineNum: Int)
+class Xor(val address: Int, rx: Int, ry: Int, val filename: String, val lineNum: Int)
   extends Instruction {
 
   val debugger = false
@@ -11,13 +11,13 @@ class Or(val address: Int, rx: Int, ry: Int, val filename: String, val lineNum: 
   def execute(machine: Machine, dummy: Simulator#LabelTable) {
     val x = machine.getRegister(rx)
     val y = machine.getRegister(ry)
-    machine.setRegister(rx, x | y)
+    machine.setRegister(rx, x ^ y)
     machine.programCounter += 2
   }
 
   def toMachineCode(dummy: Simulator#LabelTable) = {
     val str =
-      "01110000" +
+      "10010000" +
       rx.toBinStr(4) + ry.toBinStr(4) +
       "00000000" +
       "00000000"
@@ -30,7 +30,7 @@ class Or(val address: Int, rx: Int, ry: Int, val filename: String, val lineNum: 
   }
 }
 
-object Or extends StatementFactory {
+object Xor extends StatementFactory {
   def apply(code: String, addr: Int, filename: String, lineNum: Int): Option[Xor] = {
     val pattern = """Xor R(\d+), R(\d+)""".r
     code match {

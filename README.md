@@ -48,6 +48,7 @@ Add   Rx, Ry		01000000 xxxxyyyy 00000000 00000000		// Save the result of (Rx + R
 Sub   Rx, Ry		01010000 xxxxyyyy 00000000 00000000		// Save the result of (Rx - Ry) into Rx
 And   Rx, Ry		01100000 xxxxyyyy 00000000 00000000		// Save the result of (Rx & Ry) into Rx
 Or    Rx, Ry		01110000 xxxxyyyy 00000000 00000000		// Save the result of (Rx | Ry) into Rx
+Xor	  Rx, Ry		10010000 xxxxyyyy 00000000 00000000		// Save the result of (Rx ^ Ry) into Rx
 Mul   Rx, Ry		11010000 xxxxyyyy 00000000 00000000		// Save the result of (Rx * Ry) into Rx
 Div   Rx, Ry		11100000 xxxxyyyy 00000000 00000000		// Save the result of (Rx / Ry) into Rx
 Mod   Rx, Ry       	11110000 xxxxyyyy 00000000 00000000		// Save the result of (Rx % Ry) into Rx
