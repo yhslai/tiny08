@@ -20,9 +20,6 @@ main:
 	LoadI R15, #1
 	Save  [0x000E], R15
 
-	LoadI R15, #0
-	Save  [0x1000], R15 		// Clear carry
-
 	LoadI R13, #0 				// Loop1 initialization
 
 loop1:
