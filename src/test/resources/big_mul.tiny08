@@ -1,7 +1,6 @@
 // Calculate 123456 * -987654
 // The first operand is in 0000-0007, the second operand is in 0008-000F
 // the result will be stored in A000-A007
-// The carrying number is in 1000
 
 main:
 	LoadI R15, #56
@@ -34,32 +33,32 @@ loop1:
 		Equal R14, R15			// Loop2 initialization
 		JmpC  loop1-inc
 
-		LoadI R11, #0x0000
-		Add   R11, R13
-		LoadR R0, [R11]
-		LoadI R11, #0x0008
-		Add   R11, R14
-		LoadR R1, [R11]
+		LoadI R10, #0x0000
+		Add   R10, R13
+		LoadR R0, [R10]
+		LoadI R10, #0x0008
+		Add   R10, R14
+		LoadR R1, [R10]
 		Mul   R0, R1
 
 		// carry
-		LoadI R11, #100
+		LoadI R10, #100
 		Move  R1, R0
-		Div   R1, R11
+		Div   R1, R10
 		Move  R2, R0
-		Mod   R2, R11
+		Mod   R2, R10
 
-		LoadI R11, #0xA000
-		Add   R11, R13
-		Add	  R11, R14
-		LoadR R0, [R11]
+		LoadI R10, #0xA000
+		Add   R10, R13
+		Add	  R10, R14
+		LoadR R0, [R10]
 		Add   R0, R2
-		SaveR [R11], R0
+		SaveR [R10], R0
 		LoadI R15, #1
-		Add	  R11, R15
-		LoadR R0, [R11]
+		Add	  R10, R15
+		LoadR R0, [R10]
 		Add   R0, R1
-		SaveR [R11], R0
+		SaveR [R10], R0
 
 		LoadI R15, #1
 		Add   R14, R15			// Loop2 incrementation
@@ -78,23 +77,23 @@ process-carry-loop:
 	Equal R14, R15
 	JmpC  mul-sign
 
-	LoadI R11, #0xA000
-	Add   R11, R14
-	LoadR R0, [R11]
-	LoadI R11, #100
+	LoadI R10, #0xA000
+	Add   R10, R14
+	LoadR R0, [R10]
+	LoadI R10, #100
 	Move  R1, R0
-	Div   R1, R11
+	Div   R1, R10
 	Move  R2, R0
-	Mod   R2, R11
+	Mod   R2, R10
 
-	LoadI R11, #0xA000
-	Add   R11, R14
-	SaveR [R11], R2
+	LoadI R10, #0xA000
+	Add   R10, R14
+	SaveR [R10], R2
 	LoadI R15, #1
-	Add   R11, R15
-	LoadR R0, [R11]
+	Add   R10, R15
+	LoadR R0, [R10]
 	Add   R0, R1
-	SaveR [R11], R0
+	SaveR [R10], R0
 
 	LoadI R15, #1
 	Add   R14, R15			// Loop incrementation

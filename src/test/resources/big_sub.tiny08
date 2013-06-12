@@ -36,12 +36,12 @@ loop:
 	Equal R14, R15			// Loop Condition
 	JmpC  process-sign
 
-	LoadI R11, #0x0000
-	Add   R11, R14
-	LoadR R0, [R11]
-	LoadI R11, #0x0008
-	Add   R11, R14
-	LoadR R1, [R11]
+	LoadI R10, #0x0000
+	Add   R10, R14
+	LoadR R0, [R10]
+	LoadI R10, #0x0008
+	Add   R10, R14
+	LoadR R1, [R10]
 	Load  R2, [0x1000]
 	Add   R1, R2
 
@@ -53,9 +53,9 @@ loop:
 
 carry-end:
 	Sub   R0, R1
-	LoadI R11, #0xA000
-	Add   R11, R14
-	SaveR [R11], R0
+	LoadI R10, #0xA000
+	Add   R10, R14
+	SaveR [R10], R0
 
 	LoadI R15, #1
 	Add   R14, R15			// Loop incrementation
@@ -70,8 +70,8 @@ carry:
 
 process-sign:
 	Load  R2, [0x1000]
-	LoadI R11, #0
-	Equal R11, R2
+	LoadI R10, #0
+	Equal R10, R2
 	JmpC  output 			// If no pending carry, just output
 
 	LoadI R15, #1 			// Set sign to negative
@@ -85,13 +85,13 @@ process-sign-loop:
 	Equal R14, R15			// Loop Condition
 	JmpC  output
 
-	LoadI R11, #0xA000
-	Add   R11, R14
-	LoadR R0, [R11]
+	LoadI R10, #0xA000
+	Add   R10, R14
+	LoadR R0, [R10]
 	LoadI R1, #99
 	Add   R1, R2
 	Sub   R1, R0
-	SaveR [R11], R1
+	SaveR [R10], R1
 
 	LoadI R15, #1
 	Add   R14, R15
