@@ -103,8 +103,7 @@ mul-sign:
 	Load  R0, [0x0006]
 	Load  R1, [0x000E]
 	Xor   R0, R1
-	Save  [0xA006], R1
-
+	Save  [0xA006], R0
 
 output:
 %printm [0xA000]
