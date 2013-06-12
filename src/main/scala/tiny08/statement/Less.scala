@@ -18,7 +18,7 @@ class Less(val address: Int, rx: Int, ry: Int, val filename: String, val lineNum
 
   def toMachineCode(dummy: Simulator#LabelTable) = {
     val str =
-      "11000000" +
+      "10100000" +
       rx.toBinStr(4) + ry.toBinStr(4) +
       "00000000" +
       "00000000"

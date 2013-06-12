@@ -56,8 +56,8 @@ JmpC  label			10000001 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry
 JmpNC label			10000010 00000000 LLLLLLLL LLLLLLLL		// Jump to label loc if Carry Flag is not set
 ClrC				10010000 00000000 00000000 00000000		// Unset Carry Flag
 SetC				10010001 00000000 00000000 00000000		// Set Carry Flag
-Less  Rx, Ry		11000000 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx < Ry), clear it otherwise
-Equal Rx, Ry		11000001 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx == Ry), clear it otherwise
+Less  Rx, Ry		10100000 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx < Ry), clear it otherwise
+Equal Rx, Ry		10110000 xxxxyyyy 00000000 00000000		// Set Carry Flag if (Rx == Ry), clear it otherwise
 Test  Rx, #B		11110000 xxxxBBBB 00000000 00000000		// If the Bth bit of Rx is 1, set Carry Flag, clear it otherwise
 Exit  				00000000 00000000 00000000 00000000		// Exit the program
 
@@ -87,7 +87,11 @@ Machine Spec
 * As described [above](#instructions), all instructions are 32bit.
 * All data or memory addresses are 16bit, or 2byte. It's the minimum unit to access memory.
 * Consequently, every instruction occupy two memory address.
-* Numeric data is signed(-32768 ~ 32767), addresses are unsigned(0 ~ 65535, or 0x0000 ~ 0xFFFF).
+* Numeric data is signed(-32768 ~ 32767), addresses are unsigned(0 ~ 65535, or [0x0000] ~ [0xFFFF]).
+* Output number is in [0x0000] ~ [0x0007]. [0x0000] ~ [0x0005] represents the numeric part, [0x0006] represents the sign, [0x0007] represent the point.
+* Input key is in [0x7000]. Each bit represents a key(true = pressed, false = released).
+
+
 
 
 Tools

@@ -18,7 +18,7 @@ class Equal(val address: Int, rx: Int, ry: Int, val filename: String, val lineNu
 
   def toMachineCode(dummy: Simulator#LabelTable) = {
     val str =
-      "11000001" +
+      "10110000" +
       rx.toBinStr(4) + ry.toBinStr(4) +
       "00000000" +
       "00000000"

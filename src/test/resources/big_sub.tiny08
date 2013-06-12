@@ -1,0 +1,30 @@
+// Calculate 1234567890 - 9876543210
+// The first operand is in 0000-0007, the second operand is in 0008-0010
+// the result will be stored in A000-A010
+// The carrying number is in 1000
+
+main:
+	LoadI R15, #90
+	Save  [0x0000], R15
+	LoadI R15, #78
+	Save  [0x0001], R15
+	LoadI R15, #56
+	Save  [0x0002], R15
+	LoadI R15, #34
+	Save  [0x0003], R15
+	LoadI R15, #12
+	Save  [0x0004], R15
+
+	LoadI R15, #10
+	Save  [0x0006], R15
+	LoadI R15, #32
+	Save  [0x0007], R15
+	LoadI R15, #54
+	Save  [0x0008], R15
+	LoadI R15, #76
+	Save  [0x0009], R15
+	LoadI R15, #98
+	Save  [0x000A], R15
+
+	LoadI R15, #0
+	Save  [0x1000], R15		// Clear the carrying number
