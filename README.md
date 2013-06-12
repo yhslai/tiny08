@@ -7,7 +7,7 @@ An minimized assembly language we made.
 Try It Out
 --------------
 
-If you have [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html) and [Scala](http://www.scala-lang.org/), just use `sbt` command. Otherwise, download [Tiny08.jar](https://mega.co.nz/#!z4Q1HYJT!XsgfuhjPhPbegrZo7Ca3lUGWYS9TdIBWz_C3HK1n72M).
+If you have [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html) and [Scala](http://www.scala-lang.org/), just use `sbt` command. Otherwise, download [Tiny08.jar](https://mega.co.nz/#!KkQ1HazL!OkCeg3cbP7lYrP8kTOCy9xugtoRHCqjUQ41yihvKwLs).
 
 ### Run Simulator
 
