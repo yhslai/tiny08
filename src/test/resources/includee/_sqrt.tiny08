@@ -1,10 +1,62 @@
 // The first operand is in 0000-0007
 // the result will be stored in A000-A007
-// The temporary answer is in 1000-1007, temporary multiplication is in 1008-100F
+// The temporary answer is in 1000-100B, temporary multiplication is in 1010-101B
 
 sqrt-begin:
+	LoadI R15, #2
+	Load  R0, [0x0007]
+	Mod   R0, R15
 	LoadI R15, #0
-	Save  [0x1000], R15 		// clear carry
+	Equal R0, R15
+	JmpC  sqrt-non-shift
+
+	LoadI R14, #0
+sqrt-shift-loop:
+	LoadI R15, #6
+	Equal R14, R15
+	JmpC  sqrt-non-shift
+
+	LoadI R10, #0x0000
+	Add   R10, R14
+	LoadR R0, [R10]
+
+	LoadI R15, #10
+	Move  R1, R0
+	Div   R1, R15
+	Move  R2, R0
+	Mod   R2, R15
+	SaveR [R10], R1
+	LoadI R15, #0
+	Equal R14, R15
+	JmpC  sqrt-shift-inc
+	LoadI R15, #10
+	Mul   R2, R15
+	LoadI R15, #1
+	Sub   R10, R15
+	LoadR R0, [R10]
+	Add   R0, R2
+	SaveR [R10], R0
+
+sqrt-shift-inc:
+	LoadI R15, #1
+	Add   R14, R15
+	Jmp   sqrt-shift-loop
+
+
+sqrt-non-shift:
+	LoadI R15, #0
+	Save  [0x1000], R15
+	Save  [0x1001], R15
+	Save  [0x1002], R15
+	Save  [0x1003], R15
+	Save  [0x1004], R15
+	Save  [0x1005], R15
+	Save  [0x1006], R15
+	Save  [0x1007], R15
+	Save  [0x1008], R15
+	Save  [0x1009], R15
+	Save  [0x100A], R15
+	Save  [0x100B], R15
 
 	LoadI R11, #5				// loop1 initialization
 
@@ -25,12 +77,19 @@ sqrt-loop1:
 		SaveR [R10], R12		// Assign estimated temporary value
 
 		LoadI R15, #0
-		Save  [0x1008], R15
-		Save  [0x1009], R15
-		Save  [0x100A], R15
-		Save  [0x100B], R15
-		Save  [0x100C], R15
-		Save  [0x100D], R15
+		Save  [0x1010], R15
+		Save  [0x1011], R15
+		Save  [0x1012], R15
+		Save  [0x1013], R15
+		Save  [0x1014], R15
+		Save  [0x1015], R15
+		Save  [0x1016], R15
+		Save  [0x1017], R15
+		Save  [0x1018], R15
+		Save  [0x1019], R15
+		Save  [0x101A], R15
+		Save  [0x101B], R15
+
 		LoadI R13, #0 			// mul-loop1 initialization
 
 		sqrt-mul-loop1:
@@ -60,11 +119,10 @@ sqrt-loop1:
 				Move  R2, R0
 				Mod   R2, R10
 
-				LoadI R10, #0x1008
+				LoadI R10, #0x1010
 				Add   R10, R13
 				Add	  R10, R14
-
-				LoadI R15, #0x100D
+				LoadI R15, #0x101B
 				Less  R15, R10
 				JmpNC sqrt-non-overflow-lower
 				LoadI R15, #0
@@ -74,7 +132,7 @@ sqrt-loop1:
 				Jmp   sqrt-exceed
 
 			sqrt-non-overflow-lower:
-				LoadI R15, #0x100C
+				LoadI R15, #0x101A
 				Less  R15, R10
 				JmpNC sqrt-non-overflow
 				LoadI R15, #0
@@ -108,11 +166,11 @@ sqrt-loop1:
 			LoadI R14, #0 				// process-carry-loop initialization
 
 		sqrt-process-carry-loop:
-			LoadI R15, #6
+			LoadI R15, #12
 			Equal R14, R15
-			JmpC  sqrt-compare				// process-carry-loop condition
+			JmpC  sqrt-compare			// process-carry-loop condition
 
-			LoadI R10, #0x1008
+			LoadI R10, #0x1010
 			Add   R10, R14
 			LoadR R0, [R10]
 			LoadI R10, #100
@@ -121,7 +179,7 @@ sqrt-loop1:
 			Move  R2, R0
 			Mod   R2, R10
 
-			LoadI R10, #0x1008
+			LoadI R10, #0x1010
 			Add   R10, R14
 			SaveR [R10], R2
 			LoadI R15, #1
@@ -140,14 +198,14 @@ sqrt-loop1:
 		sqrt-compare-loop:
 			LoadI R15, #0
 			Less  R14, R15
-			JmpC  sqrt-loop2-inc
+			JmpC  sqrt-compare2
 
-			LoadI R10, #0x1008
+			LoadI R10, #0x1016
 			Add	  R10, R14
 			LoadR R0, [R10]				// temporary result
 			LoadI R10, #0x0000
 			Add   R10, R14
-			LoadR R1, [R10]				// dividend
+			LoadR R1, [R10]				// sqrtidend
 			Less  R1, R0
 			JmpC  sqrt-exceed
 			Less  R0, R1
@@ -156,6 +214,25 @@ sqrt-loop1:
 			LoadI R15, #1
 			Sub	  R14, R15				// compare-loop incrementation
 			Jmp   sqrt-compare-loop
+
+		sqrt-compare2:
+			LoadI R14, #5
+
+		sqrt-compare2-loop:
+			LoadI R15, #0
+			Less  R14, R15
+			JmpC  sqrt-loop2-inc
+
+			LoadI R10, #0x1010
+			Add   R10, R14
+			LoadR R0, [R10]
+			LoadI R1, #0
+			Less  R1, R0
+			JmpC  sqrt-exceed
+
+			LoadI R15, #1
+			Sub   R14, R15
+			Jmp   sqrt-compare2-loop
 
 	sqrt-exceed:
 		Move  R0, R12
@@ -169,7 +246,7 @@ sqrt-loop1:
 	sqrt-loop2-inc:
 		LoadI R15, #1
 		Add   R12, R15
-		Jmp sqrt-loop2
+		Jmp   sqrt-loop2
 
 sqrt-loop1-inc:
 	LoadI R15, #1
@@ -178,25 +255,70 @@ sqrt-loop1-inc:
 
 sqrt-loop1-end:
 
-sqrt-assign-result:
-	LoadI R14, #0
-sqrt-assign-result-loop:
-	LoadI R15, #6
-	Equal R14, R15
-	JmpC  sqrt-assign-result-loop-end
+sqrt-sqrt-float:
+	Load  R0, [0x0007]
+	LoadI R15, #12
+	Add   R0, R15
+	LoadI R15, #2
+	Div   R0, R15
+	Save  [0xA007], R0
 
-	LoadI R11, #0x1000
-	Add   R11, R14
-	LoadR R0, [R11]
-	LoadI R11, #0xA000
-	Add   R11, R14
-	SaveR [R11], R0
+sqrt-check-repoint:
+	LoadI R14, #11
+
+sqrt-find-highest-loop:
+	LoadI R15, #5
+	Equal R14, R15
+	JmpC  sqrt-repoint
+
+	LoadI R10, #0x1000
+	Add   R10, R14
+	LoadR R0, [R10]
+	LoadI R15, #0
+	Equal R0, R15
+	JmpNC sqrt-repoint
 
 	LoadI R15, #1
-	Add   R14, R15						// assign-result-loop incrementation
-	Jmp   sqrt-assign-result-loop
+	Sub   R14, R15
+	Jmp   sqrt-find-highest-loop
 
-sqrt-assign-result-loop-end:
+sqrt-repoint:
+	LoadI R13, #5
+
+sqrt-repoint-loop:
+	LoadI R15, #0
+	Less  R13, R15
+	JmpC  sqrt-repoint-end
+
+	LoadI R10, #0x1000
+	Add   R10, R14
+	LoadR R0, [R10]
+	LoadI R10, #0xA000
+	Add   R10, R13
+	SaveR [R10], R0
+
+	LoadI R15, #1
+	Sub   R14, R15
+	Sub   R13, R15
+	Jmp   sqrt-repoint-loop
+
+sqrt-repoint-end:
+	Load  R0, [0xA007]
+	Move  R1, R14
+	LoadI R15, #1
+	Add   R1, R15
+	LoadI R15, #2
+	Mul   R1, R15
+	Sub   R0, R1
+	Save  [0xA007], R0
+
+	LoadI R15, #0
+	Less  R0, R15
+	JmpNC sqrt-end
+
+sqrt-error:
+	LoadI R15, #0xFFFF
+	Save  [0xA006], R15
 
 sqrt-end:
 

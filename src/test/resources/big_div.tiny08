@@ -1,4 +1,4 @@
-// Calculate -473763307877 / 809239 = -585443
+// Calculate -473763307877 / 591823 = -800515.201127
 // The first operand is in 0000-0007, the second operand is in 0008-000F
 // the result will be stored in A000-A007
 // The temporary answer is in 1000-1007, temporary multiplication is in 1008-100F
@@ -18,11 +18,11 @@
 	LoadI R15, #1
 	Save  [0x0006], R15
 
-	LoadI R15, #39
+	LoadI R15, #23
 	Save  [0x0008], R15
-	LoadI R15, #92
+	LoadI R15, #18
 	Save  [0x0009], R15
-	LoadI R15, #80
+	LoadI R15, #59
 	Save  [0x000A], R15
 
 	#include "includee/_div"

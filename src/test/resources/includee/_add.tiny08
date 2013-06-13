@@ -1,51 +1,302 @@
 // The first operand is in 0000-0007, the second operand is in 0008-000F
 // the result will be stored in A000-A007
-// The carrying number is in 1000
+// temporary answer is in 1000-100B
 
 add-begin:
+%printm [0x0006]
 	LoadI R15, #0
 	Save  [0x1000], R15		// Clear the carrying number
+	Save  [0x1001], R15		// Clear the carrying number
+	Save  [0x1002], R15		// Clear the carrying number
+	Save  [0x1003], R15		// Clear the carrying number
+	Save  [0x1004], R15		// Clear the carrying number
+	Save  [0x1005], R15		// Clear the carrying number
+	Save  [0x1006], R15		// Clear the carrying number
+	Save  [0x1007], R15		// Clear the carrying number
+	Save  [0x1008], R15		// Clear the carrying number
+	Save  [0x1009], R15		// Clear the carrying number
+	Save  [0x100A], R15		// Clear the carrying number
+	Save  [0x100B], R15		// Clear the carrying number
 
-	LoadI R14, #0 			// Loop initialization
+	Load  R0, [0x0007]
+	LoadI R15, #2
+	Mod   R0, R15
+	LoadI R15, #0
+	Equal R0, R15
+	JmpC  add-non-shift1
 
-add-loop:
+	LoadI R15, #11
+	Load  R4, [0x0007]
+	Sub   R15, R4
+	Move  R4, R15
+	LoadI R15, #2
+	Div   R4, R15
+
+	LoadI R14, #0
+add-shift1-loop:
 	LoadI R15, #6
-	Equal R14, R15			// Loop condition
-	JmpC  add-end
+	Equal R14, R15
+	JmpC  add-check-shift2
 
-	LoadI R10, #0x0000
+	LoadI R10, #0000
 	Add   R10, R14
 	LoadR R0, [R10]
-	LoadI R10, #0x0008
-	Add   R10, R14
-	LoadR R1, [R10]
-	Load  R2, [0x1000]
-	Add   R0, R1
-	Add   R0, R2
-	LoadI R15, #99
-	Less  R15, R0
-	JmpC  add-carry
-	JmpNC add-no-carry
 
-add-carry-end:
-	LoadI R10, #0xA000
+	LoadI R15, #10
+	Move  R1, R0
+	Div   R1, R15
+	Move  R2, R0
+	Mod   R2, R15
+	Mul   R2, R15
+
+	LoadI R10, #0x1000
 	Add   R10, R14
+	Add   R10, R4
+	LoadI R15, #0x100B
+	Less  R15, R10
+	JmpC  add-shift1-loop-inc
+	LoadR R0, [R10]
+	Add   R0, R2
 	SaveR [R10], R0
 
 	LoadI R15, #1
-	Add   R14, R15			// Loop incrementation
-	Jmp   add-loop
+	Add   R10, R15
+	LoadI R15, #0x100B
+	Less  R15, R10
+	JmpC  add-shift1-loop-inc
+	LoadR R0, [R10]
+	Add   R0, R1
+	SaveR [R10], R0
+
+add-shift1-loop-inc:
+	LoadI R15, #1
+	Add   R14, R15
+	Jmp   add-shift1-loop
+
+add-non-shift1:
+	LoadI R15, #12
+	Load  R4, [0x0007]
+	Sub   R15, R4
+	Move  R4, R15
+	LoadI R15, #2
+	Div   R4, R15
+
+	LoadI R14, #0
+add-non-shift1-loop:
+	LoadI R15, #6
+	Equal R14, R15
+	JmpC add-check-shift2
+
+	LoadI R10, #0x0000
+	Add   R10, R14
+	LoadR R1, [R10]
+	LoadI R10, #0x1000
+	Add   R10, R14
+	Add   R10, R4
+	LoadI R15, #0x100B
+	Less  R15, R10
+	JmpC  add-non-shift1-inc
+	LoadR R0, [R10]
+	Add   R0, R1
+	SaveR [R10], R0
+
+add-non-shift1-inc:
+	LoadI R15, #1
+	Add   R14, R15
+	Jmp   add-non-shift1-loop
+
+
+
+add-check-shift2:
+	Load  R0, [0x000F]
+	LoadI R15, #2
+	Mod   R0, R15
+	LoadI R15, #0
+	Equal R0, R15
+	JmpC  add-non-shift2
+
+	LoadI R15, #11
+	Load  R4, [0x000F]
+	Sub   R15, R4
+	Move  R4, R15
+	LoadI R15, #2
+	Div   R4, R15
+
+	LoadI R14, #0
+add-shift2-loop:
+	LoadI R15, #6
+	Equal R14, R15
+	JmpC  add-carry
+
+	LoadI R10, #0008
+	Add   R10, R14
+	LoadR R0, [R10]
+
+	LoadI R15, #10
+	Move  R1, R0
+	Div   R1, R15
+	Move  R2, R0
+	Mod   R2, R15
+	Mul   R2, R15
+
+	LoadI R10, #0x1000
+	Add   R10, R14
+	Add   R10, R4
+	LoadI R15, #0x100B
+	Less  R15, R10
+	JmpC  add-shift2-loop-inc
+	LoadR R0, [R10]
+	Add   R0, R2
+	SaveR [R10], R0
+
+	LoadI R15, #1
+	Add   R10, R15
+	LoadI R15, #0x100B
+	Less  R15, R10
+	JmpC  add-shift2-loop-inc
+	LoadR R0, [R10]
+	Add   R0, R1
+	SaveR [R10], R0
+
+add-shift2-loop-inc:
+	LoadI R15, #1
+	Add   R14, R15
+	Jmp   add-shift2-loop
+
+add-non-shift2:
+	LoadI R15, #12
+	Load  R4, [0x000F]
+	Sub   R15, R4
+	Move  R4, R15
+	LoadI R15, #2
+	Div   R4, R15
+
+	LoadI R14, #0
+add-non-shift2-loop:
+	LoadI R15, #6
+	Equal R14, R15
+	JmpC add-carry
+
+	LoadI R10, #0x0008
+	Add   R10, R14
+	LoadR R1, [R10]
+	LoadI R10, #0x1000
+	Add   R10, R14
+	Add   R10, R4
+	LoadI R15, #0x100B
+	Less  R15, R10
+	JmpC  add-non-shift2-inc
+	LoadR R0, [R10]
+	Add   R0, R1
+	SaveR [R10], R0
+
+add-non-shift2-inc:
+	LoadI R15, #1
+	Add   R14, R15
+	Jmp   add-non-shift2-loop
+
+
 
 add-carry:
-	LoadI R15, #100
-	Sub   R0, R15
-	LoadI R15, #1
-	Save  [0x1000], R15
-	Jmp   add-carry-end
 
-add-no-carry:
+	LoadI R14, #0
+add-carry-loop:
+	LoadI R15, #12
+	Equal R14, R15
+	JmpC  add-check-repoint
+
+	LoadI R10, #0x1000
+	Add   R10, R14
+	LoadR R0, [R10]
+	LoadI R15, #100
+	Move  R1, R0
+	Move  R2, R0
+	Div   R1, R15
+	Mod   R2, R15
+
+	SaveR [R10], R2
+
+	LoadI R15, #1
+	Add   R10, R15
 	LoadI R15, #0
-	Save  [0x1000], R15
-	Jmp   add-carry-end
+	Equal R15, R1
+	JmpC  add-non-overflow
+	LoadI R15, #0x100B
+	Less  R15, R10
+	JmpNC add-non-overflow
+	JmpC  add-error
+
+add-non-overflow:
+	LoadR R0, [R10]
+	Add   R0, R1
+	SaveR [R10], R0
+
+	LoadI R15, #1
+	Add   R14, R15
+	Jmp   add-carry-loop
+
+
+
+add-check-repoint:
+	LoadI R0, #12
+	Save  [0xA007], R0
+	LoadI R14, #11
+
+add-find-highest-loop:
+	LoadI R15, #5
+	Equal R14, R15
+	JmpC  add-repoint
+
+	LoadI R10, #0x1000
+	Add   R10, R14
+	LoadR R0, [R10]
+	LoadI R15, #0
+	Equal R0, R15
+	JmpNC add-repoint
+
+	LoadI R15, #1
+	Sub   R14, R15
+	Jmp   add-find-highest-loop
+
+add-repoint:
+	LoadI R13, #5
+
+add-repoint-loop:
+	LoadI R15, #0
+	Less  R13, R15
+	JmpC  add-repoint-end
+
+	LoadI R10, #0x1000
+	Add   R10, R14
+	LoadR R0, [R10]
+	LoadI R10, #0xA000
+	Add   R10, R13
+	SaveR [R10], R0
+
+	LoadI R15, #1
+	Sub   R14, R15
+	Sub   R13, R15
+	Jmp   add-repoint-loop
+
+add-repoint-end:
+	Load  R0, [0xA007]
+	Move  R1, R14
+	LoadI R15, #1
+	Add   R1, R15
+	LoadI R15, #2
+	Mul   R1, R15
+	Sub   R0, R1
+	Save  [0xA007], R0
+
+	LoadI R15, #0
+	Less  R0, R15
+	JmpNC add-end
+
+
+add-error:
+	LoadI R15, #0xFFFF
+	Save  [0xA006], R15
 
 add-end:
+
+

@@ -1,5 +1,18 @@
+// The extra sign is in [0x2000]
+
 begin:
 %break
+	LoadI R15, #0
+	Save  [0x2000], R15
+	Save  [0xA000], R15
+	Save  [0xA001], R15
+	Save  [0xA002], R15
+	Save  [0xA003], R15
+	Save  [0xA004], R15
+	Save  [0xA005], R15
+	Save  [0xA006], R15
+	Save  [0xA007], R15
+
 
 	Load  R0, [0x0010]
 	LoadI R15, #0
@@ -8,10 +21,10 @@ begin:
 
 	LoadI R15, #1
 	Equal R0, R15
-	JmpC  add-begin
+	JmpC  add
 	LoadI R15, #2
 	Equal R0, R15
-	JmpC  sub-begin
+	JmpC  sub
 	LoadI R15, #3
 	Equal R0, R15
 	JmpC  mul-begin
@@ -22,6 +35,61 @@ begin:
 	LoadI R15, #5
 	Equal R0, R15
 	JmpC  sqrt-begin
+
+add:
+	Load  R0, [0x0006]
+	LoadI R15, #1
+	Equal R0, R15
+	JmpC  add-first-neg
+	Load  R0, [0x000E]
+	LoadI R15, #1
+	Equal R0, R15
+	JmpC  sub-begin
+	Jmp   add-begin
+
+add-first-neg:
+	LoadI R15, #1
+	Save  [0x2000], R15
+	LoadI R15, #0
+	Save  [0x0006], R15
+	Load  R10, [0x000E]
+	LoadI R15, #1
+	Xor   R10, R15
+	Save  [0x000E], R10
+
+	Load  R0, [0x000E]
+	LoadI R15, #1
+	Equal R0, R15
+	JmpC  sub-begin
+	Jmp   add-begin
+
+sub:
+	Load  R0, [0x0006]
+	LoadI R15, #1
+	Equal R0, R15
+	JmpC  sub-first-neg
+	Load  R0, [0x000E]
+	LoadI R15, #1
+	Equal R0, R15
+	JmpC  add-begin
+	Jmp   sub-begin
+
+sub-first-neg:
+	LoadI R15, #1
+	Save  [0x2000], R15
+	%print R15
+	LoadI R15, #0
+	Save  [0x0006], R15
+	Load  R10, [0x000E]
+	LoadI R15, #1
+	Xor   R10, R15
+	Save  [0x000E], R10
+
+	Load  R0, [0x000E]
+	LoadI R15, #1
+	Equal R0, R15
+	JmpC  add-begin
+	Jmp   sub-begin
 
 	#include "includee/_add"
 	Jmp   output
@@ -35,6 +103,10 @@ begin:
 	Jmp   output
 
 output:
+	Load  R0, [0xA006]
+	Load  R1, [0x2000]
+	Xor   R0, R1
+	Save  [0xA006], R0
 %printm [0xA000]
 %printm [0xA001]
 %printm [0xA002]

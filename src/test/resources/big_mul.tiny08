@@ -1,13 +1,17 @@
-// Calculate 123456 * -987654
+// Calculate 123456.78 * -987.654 = -121932582.59412
 // The first operand is in 0000-0007, the second operand is in 0008-000F
 // the result will be stored in A000-A007
 
-	LoadI R15, #56
+	LoadI R15, #78
 	Save  [0x0000], R15
-	LoadI R15, #34
+	LoadI R15, #56
 	Save  [0x0001], R15
-	LoadI R15, #12
+	LoadI R15, #34
 	Save  [0x0002], R15
+	LoadI R15, #12
+	Save  [0x0003], R15
+	LoadI R15, #2
+	Save  [0x0007], R15
 
 	LoadI R15, #54
 	Save  [0x0008], R15
@@ -17,6 +21,8 @@
 	Save  [0x000A], R15
 	LoadI R15, #1
 	Save  [0x000E], R15
+	LoadI R15, #3
+	Save  [0x000F], R15
 
 	#include "includee/_mul"
 

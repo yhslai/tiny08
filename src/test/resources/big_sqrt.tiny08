@@ -1,20 +1,20 @@
-// Calculate sqrt(146741858761) = 383069
+// Calculate sqrt(100000000000) = 316227.766016
 // The first operand is in 0000-0007
 // the result will be stored in A000-A007
 // The temporary answer is in 1000-1007, temporary multiplication is in 1008-100F
 
 main:
-	LoadI R15, #61
+	LoadI R15, #00
 	Save  [0x0000], R15
-	LoadI R15, #87
+	LoadI R15, #00
 	Save  [0x0001], R15
-	LoadI R15, #85
+	LoadI R15, #00
 	Save  [0x0002], R15
-	LoadI R15, #41
+	LoadI R15, #00
 	Save  [0x0003], R15
-	LoadI R15, #67
+	LoadI R15, #00
 	Save  [0x0004], R15
-	LoadI R15, #14
+	LoadI R15, #10
 	Save  [0x0005], R15
 	LoadI R15, #0
 	Save  [0x1000], R15 		// clear carry

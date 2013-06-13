@@ -1,7 +1,22 @@
 // The first operand is in 0000-0007, the second operand is in 0008-000F
+// the temporary answer is in 1008-1013
 // the result will be stored in A000-A007
 
 mul-begin:
+	LoadI R15, #0
+	Save  [0x1008], R15
+	Save  [0x1009], R15
+	Save  [0x100A], R15
+	Save  [0x100B], R15
+	Save  [0x100C], R15
+	Save  [0x100D], R15
+	Save  [0x100E], R15
+	Save  [0x100F], R15
+	Save  [0x1010], R15
+	Save  [0x1011], R15
+	Save  [0x1012], R15
+	Save  [0x1013], R15
+
 	LoadI R13, #0 				// Loop1 initialization
 
 mul-loop1:
@@ -31,7 +46,7 @@ mul-loop1:
 		Move  R2, R0
 		Mod   R2, R10
 
-		LoadI R10, #0xA000
+		LoadI R10, #0x1008
 		Add   R10, R13
 		Add	  R10, R14
 		LoadR R0, [R10]
@@ -56,11 +71,11 @@ mul-process-carry:
 	LoadI R14, #0
 
 mul-process-carry-loop:
-	LoadI R15, #6
+	LoadI R15, #12
 	Equal R14, R15
 	JmpC  mul-mul-sign
 
-	LoadI R10, #0xA000
+	LoadI R10, #0x1008
 	Add   R10, R14
 	LoadR R0, [R10]
 	LoadI R10, #100
@@ -69,7 +84,7 @@ mul-process-carry-loop:
 	Move  R2, R0
 	Mod   R2, R10
 
-	LoadI R10, #0xA000
+	LoadI R10, #0x1008
 	Add   R10, R14
 	SaveR [R10], R2
 	LoadI R15, #1
@@ -87,5 +102,68 @@ mul-mul-sign:
 	Load  R1, [0x000E]
 	Xor   R0, R1
 	Save  [0xA006], R0
+
+mul-mul-point:
+	Load  R0, [0x0007]
+	Load  R1, [0x000F]
+	Add   R0, R1
+	Save  [0xA007], R0
+
+mul-check-repoint:
+	LoadI R14, #11
+
+mul-find-highest-loop:
+	LoadI R15, #5
+	Equal R14, R15
+	JmpC  mul-repoint
+
+	LoadI R10, #0x1008
+	Add   R10, R14
+	LoadR R0, [R10]
+	LoadI R15, #0
+	Equal R0, R15
+	JmpNC mul-repoint
+
+	LoadI R15, #1
+	Sub   R14, R15
+	Jmp   mul-find-highest-loop
+
+mul-repoint:
+	LoadI R13, #5
+
+mul-repoint-loop:
+	LoadI R15, #0
+	Less  R13, R15
+	JmpC  mul-repoint-end
+
+	LoadI R10, #0x1008
+	Add   R10, R14
+	LoadR R0, [R10]
+	LoadI R10, #0xA000
+	Add   R10, R13
+	SaveR [R10], R0
+
+	LoadI R15, #1
+	Sub   R14, R15
+	Sub   R13, R15
+	Jmp   mul-repoint-loop
+
+mul-repoint-end:
+	Load  R0, [0xA007]
+	Move  R1, R14
+	LoadI R15, #1
+	Add   R1, R15
+	LoadI R15, #2
+	Mul   R1, R15
+	Sub   R0, R1
+	Save  [0xA007], R0
+
+	LoadI R15, #0
+	Less  R0, R15
+	JmpNC mul-end
+
+div-error:
+	LoadI R15, #0xFFFF
+	Save  [0xA006], R15
 
 mul-end:
